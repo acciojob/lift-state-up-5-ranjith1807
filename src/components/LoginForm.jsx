@@ -10,14 +10,14 @@ const LoginForm = ({ onLogin }) => {
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='username'>UserName</label>
-                    {/* Input tags must be self-closing in JSX */}
+                    <label htmlFor='username'>UserName:</label>
+                  
                     <input id='username' type='text' /> 
                 </div>
                 
                 <div>
-                    <label htmlFor='pass'>Password</label>
-                    {/* Input tags must be self-closing in JSX */}
+                    <label htmlFor='pass'>Password:</label>
+                    
                     <input id='pass' type='password' /> 
                 </div>
                 
