@@ -1,53 +1,57 @@
 import React, { useState } from 'react';
 
+// --- CHILD COMPONENT ---
 function LoginForm({ isLoggedIn, onLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    onLogin();
+    // Trigger the function passed from the parent to update the state
+    onLogin(); 
   };
 
-  return (
-    <div style={{ padding: '20px', marginTop: '20px', borderRadius: '8px' }}>
-      {isLoggedIn && (
-        <div style={{ padding: '10px', backgroundColor: '#d4edda', color: '#155724', marginBottom: '15px', borderRadius: '4px' }}>
-          <strong>Success!</strong> You are logged in!.
-        </div>
-      )}
+  // If the user is logged in, show a success message instead of the form
+  if (isLoggedIn) {
+    return (
+      <div className="login-success">
+        <p>You are logged in!</p>
+      </div>
+    );
+  }
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="username">Username: </label>
-          <input type="text" id="username" required />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <label htmlFor="password">Password: </label>
-          <input type="password" id="password" required />
-        </div>
-        <button type="submit" style={{ padding: '5px 15px', cursor: 'pointer' }}>
-          Log In
-        </button>
-      </form>
-    </div>
+  // Otherwise, render the login form
+  return (
+    <form onSubmit={handleSubmit} className="login-form">
+      <div style={{ marginBottom: '10px' }}>
+        <label htmlFor="username">Username: </label>
+        <input type="text" id="username" required />
+      </div>
+      <div style={{ marginBottom: '10px' }}>
+        <label htmlFor="password">Password: </label>
+        <input type="password" id="password" required />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
-function App() {
+// --- PARENT COMPONENT ---
+export default function App() {
+  // 1. Define the state in the parent component
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 2. Create a handler to update the state
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
 
   return (
-    <div style={{ fontFamily: 'Arial', maxWidth: '400px', margin: '50px auto', textAlign: 'center' }}>
+    <div style={{ fontFamily: 'sans-serif', padding: '20px' }}>
       <h1>Parent Component</h1>
+      
+      
+      
 
-      <LoginForm 
-        isLoggedIn={isLoggedIn} 
-        onLogin={handleLogin} 
-      />
+      {/* 3. Pass the state and the updater function as props to the child */}
+      <LoginForm isLoggedIn={isLoggedIn} onLogin={handleLogin} />
     </div>
   );
 }
-
-export default App;
